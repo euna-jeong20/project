@@ -132,10 +132,14 @@ class DeepGCN(torch.nn.Module):
         self.stem = Stem(out_dim=channels[0], act=act)
         # H = 224
         # W = 224
-        H = 800
-        W = 1312
+        # H = 800
+        # W = 1312
         # H = 800
         # W = 800
+        # H = 800
+        # W = 1333
+        H = 800
+        W = 1280
         self.pos_embed = nn.Parameter(torch.zeros(1, channels[0], H//4, W//4))
         HW = H // 4 * W// 4
         DeepGCN.blocks = blocks
@@ -216,8 +220,10 @@ class DeepGCNI(torch.nn.Module):
         act = opt.act
 
         self.stem = Stem(out_dim=channels[0], act=act)
+        # H = 800
+        # W = 1312
         H = 800
-        W = 1312
+        W = 1280
         self.pos_embed = nn.Parameter(torch.zeros(1, channels[0], H//4, W//4))
 
         self.deep_gcn = DeepGCN(opt)
@@ -225,6 +231,8 @@ class DeepGCNI(torch.nn.Module):
        
         
     def forward(self, inputs):
+        print('stem', self.stem(inputs).shape)
+        print('pos', self.pos_embed.shape)
         x = self.stem(inputs) + self.pos_embed
         x = self.deep_gcn(x,x*0.2)
 
