@@ -62,3 +62,10 @@ python -m torch.distributed.launch --nproc_per_node=8 train.py /path/to/imagenet
 
 ## Acknowledgement
 This repo partially uses code from [deep_gcns_torch](https://github.com/lightaime/deep_gcns_torch) and [timm](https://github.com/rwightman/pytorch-image-models).
+
+
+##메모
+srun -J vig -p A5000 -N 1 -n 1 --time 01:00:00 --gres=gpu:8 --cpus-per-task=10 --pty /bin/bash -l
+conda activate vig
+cd train_vig
+torchrun --nproc_per_node=8 ./train.py --world-size 8 --workers 10 --batch-size 32
