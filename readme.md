@@ -66,6 +66,15 @@ This repo partially uses code from [deep_gcns_torch](https://github.com/lightaim
 
 ## 메모
 srun -J vig -p A5000 -N 1 -n 1 --time 01:00:00 --gres=gpu:8 --cpus-per-task=10 --pty /bin/bash -l
+
 conda activate vig
+
 cd train_vig
+
 torchrun --nproc_per_node=8 ./train.py --world-size 8 --workers 10 --batch-size 32
+
+
+#SBATCH -p 4A100
+
+#SBATCH -q 4A100
+
